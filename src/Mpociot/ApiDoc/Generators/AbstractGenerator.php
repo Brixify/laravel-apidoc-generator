@@ -127,49 +127,11 @@ abstract class AbstractGenerator
     }
 
     /**
-     * @param $route
-     * @param array $bindings
+     * @param  \Illuminate\Routing\Route $route
      *
-     * @return mixed
-     */
-    protected function addRouteModelBindings($route, $bindings)
-    {
-        $uri = $this->getUri($route);
-        foreach ($bindings as $model => $id) {
-            $uri = str_replace('{'.$model.'}', $id, $uri);
-        }
+     * @throws \ReflectionException
 
-        return $uri;
-    }
-
-    /**
-     * Get the response from the docblock if available.
-     *
-     * @param array $tags
-     *
-     * @return mixed
-     */
-    protected function getDocblockResponse($tags)
-    {
-        $responseTags = array_filter($tags, function ($tag) {
-            if (! ($tag instanceof Tag)) {
-                return false;
-            }
-
-            return \strtolower($tag->getName()) == 'response';
-        });
-        if (empty($responseTags)) {
-            return;
-        }
-        $responseTag = \array_first($responseTags);
-
-        return \response(\json_encode($responseTag->getContent()));
-    }
-
-    /**
-     * @param  \Illuminate\Routing\Route  $route
-     *
-     * @return string
+     * @return array
      */
     protected function getRouteDescription($route)
     {
@@ -185,6 +147,22 @@ abstract class AbstractGenerator
             'long' => $phpdoc->getLongDescription()->getContents(),
             'tags' => $phpdoc->getTags(),
         ];
+    }
+
+    /**
+     * @param $route
+     * @param array $bindings
+     *
+     * @return mixed
+     */
+    protected function addRouteModelBindings($route, $bindings)
+    {
+        $uri = $this->getUri($route);
+        foreach ($bindings as $model => $id) {
+            $uri = str_replace('{'.$model.'}', $id, $uri);
+        }
+
+        return $uri;
     }
 
     /**

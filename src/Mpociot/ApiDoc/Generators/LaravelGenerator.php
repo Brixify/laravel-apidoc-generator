@@ -48,6 +48,8 @@ class LaravelGenerator extends AbstractGenerator
      * @param array $headers
      * @param bool $withResponse
      *
+     * @throws \ReflectionException
+     *
      * @return array
      */
     public function processRoute($route, $bindings = [], $headers = [], $withResponse = true)
@@ -253,6 +255,8 @@ class LaravelGenerator extends AbstractGenerator
     /**
      * @param  string $route
      * @param  array $bindings
+     *
+     * @throws \ReflectionException
      *
      * @return array
      */

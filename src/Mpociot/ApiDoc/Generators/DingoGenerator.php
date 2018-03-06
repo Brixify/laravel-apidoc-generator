@@ -17,6 +17,8 @@ class DingoGenerator extends AbstractGenerator
      * @param array $headers
      * @param bool $withResponse
      *
+     * @throws \ReflectionException
+     *
      * @return array
      */
     public function processRoute($route, $bindings = [], $headers = [], $withResponse = true)
